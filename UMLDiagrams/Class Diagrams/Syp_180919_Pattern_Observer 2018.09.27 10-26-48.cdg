@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Syp_180919_Pattern_Observer">
+  <ClassDiagramComponents>
+    <Class name="Anzeige" package="leimab" visibility="public" xPosition="531.0" yPosition="373.0">
+      <Fields>
+        <Field name="wd" type="WeatherData" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="WeatherData" name="wd"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="update" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="WeatherData" package="leimab" visibility="public" xPosition="-13.0" yPosition="258.0">
+      <Fields>
+        <Field name="anzeigen" type="ArrayList&lt;Observer&gt;" visibility="private"/>
+        <Field name="temp" type="float" visibility="private"/>
+        <Field name="humidity" type="float" visibility="private"/>
+        <Field name="pressure" type="float" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="registerObserver" returnType="void" visibility="public">
+          <Argument type="Anzeige" name="a"/>
+        </Method>
+        <Method name="unregisterObserver" returnType="void" visibility="public">
+          <Argument type="Anzeige" name="a"/>
+        </Method>
+        <Method name="notifyObserver" returnType="void" visibility="public"/>
+        <Method name="changeValues" returnType="void" visibility="public">
+          <Argument type="float" name="temp"/>
+          <Argument type="float" name="humidity"/>
+          <Argument type="float" name="pressure"/>
+        </Method>
+        <Method name="getTemp" returnType="float" visibility="public"/>
+        <Method name="getHumidity" returnType="float" visibility="public"/>
+        <Method name="getPressure" returnType="float" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="Observer" package="leimab" visibility="public" xPosition="518.0" yPosition="71.0">
+      <Methods>
+        <Method name="update" returnType="void" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Interface>
+    <Interface name="Subject" package="leimab" visibility="public" xPosition="54.0" yPosition="71.0">
+      <Methods>
+        <Method name="registerObserver" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Anzeige" name="a"/>
+        </Method>
+        <Method name="unregisterObserver" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Anzeige" name="a"/>
+        </Method>
+        <Method name="notifyObserver" returnType="void" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="leimab.Anzeige" target="leimab.Observer"/>
+    <HasRelation name="wd" source="leimab.Anzeige" target="leimab.WeatherData" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="anzeigen" source="leimab.WeatherData" target="leimab.Observer" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Observer&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="leimab.WeatherData" target="leimab.Subject"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
