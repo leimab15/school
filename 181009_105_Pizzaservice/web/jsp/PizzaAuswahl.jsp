@@ -38,6 +38,8 @@
                 <br>
                 <br>
                 <input class="btn btn-primary" type="submit" name="bestellen" value="Bestellen" />
+                <br>
+                <div  style="color:red; font-size: 20px;"><%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : ""%></div>
             </div>
         </form>
     </body>

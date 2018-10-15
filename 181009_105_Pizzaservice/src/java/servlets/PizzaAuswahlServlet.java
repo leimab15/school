@@ -6,18 +6,12 @@
 package servlets;
 
 import beans.Pizza;
-import com.sun.imageio.plugins.common.I18N;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,20 +38,19 @@ public class PizzaAuswahlServlet extends HttpServlet {
 
             FileInputStream fis = new FileInputStream(f);
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-            BufferedReader br = new BufferedReader(isr);
-
-            String line = "";
-            String seperator = ";";
-
-            while ((line = br.readLine()) != null) {
-                String[] pizzaDataStr = line.split(seperator);
-                String name = pizzaDataStr[0];
-                String fileName = pizzaDataStr[1];
-                double price = Double.parseDouble(pizzaDataStr[2]);
-                pizzaList.add(new Pizza(name, fileName, price));
+            try (BufferedReader br = new BufferedReader(isr)) {
+                String line = "";
+                String seperator = ";";
+                
+                while ((line = br.readLine()) != null) {
+                    String[] pizzaDataStr = line.split(seperator);
+                    String name = pizzaDataStr[0];
+                    String fileName = pizzaDataStr[1];
+                    double price = Double.parseDouble(pizzaDataStr[2]);
+                    pizzaList.add(new Pizza(name, fileName, price));
+                }
             }
-            br.close();
-        } catch (Exception ex) {
+        } catch (IOException | NumberFormatException ex) {
             System.out.println("Ein Error beim Laden ist aufgetreten: " + ex);
         }
     }
@@ -108,27 +101,28 @@ public class PizzaAuswahlServlet extends HttpServlet {
         String zureuck = request.getParameter("zurueck");
         String lieferadresse = request.getParameter("lieferadresse");
         HttpSession session = request.getSession();
-
+        
         if (zureuck != null) {
             request.getRequestDispatcher("jsp" + File.separator + "PizzaAuswahl.jsp").forward(request, response);
         }
+        
         if (bestellen != null) {
-            //TODO check Lieferadresse
             ArrayList<Pizza> bestelltePizzas = new ArrayList();
-            for (Pizza p : pizzaList) {
+            pizzaList.forEach((p) -> {
                 String pizzasStr = request.getParameter(p.getName());
                 int pizzas = Integer.parseInt(pizzasStr);
                 if (pizzas > 0) {
                     p.setMenge(pizzas);
                     bestelltePizzas.add(p);
                 }
-            }
+            });
             if (bestelltePizzas.size() > 0 && !lieferadresse.isEmpty()) {
                 session.setAttribute("bestellungsListe", bestelltePizzas);
                 session.setAttribute("lieferadresse", lieferadresse);
                 request.getRequestDispatcher("jsp" + File.separator + "PizzaBestellung.jsp").forward(request, response);
+                request.setAttribute("errorMessage", "");
             } else {
-                //TODO auswahl error
+                request.setAttribute("errorMessage", "Bitte mindestes 1 Pizza bestellen und die Lieferadresse eigeben!");
             }
         }
         processRequest(request, response);
