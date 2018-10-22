@@ -10,12 +10,15 @@ package leimab15;
  * @author Manuel
  */
 public abstract class Drinks {
-    private String description;
+    
+    protected String description;
     private int cost;
+    protected Drinks drink = null;
+
     
     abstract double cost();
 
     public String getDescription() {
-        return description;
+        return ((drink != null) ? drink.getDescription() : "") + description ;
     }
 }

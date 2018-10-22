@@ -11,8 +11,12 @@ package leimab15;
  */
 public class Verlängerter extends Drinks{
 
+    public Verlängerter() {
+        this.description = "Verlängerter";
+    }
+   
     @Override
-    double cost() {
+    public double cost() {
         return 1.4;
     }
     

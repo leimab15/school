@@ -11,6 +11,10 @@ package leimab15;
  */
 public class Hausmischung extends Drinks{
 
+    public Hausmischung() {
+        this.description = "Hausmischung";
+    }
+    
     @Override
     public double cost() {
         return 2.0;

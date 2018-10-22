@@ -11,6 +11,7 @@ package leimab15;
  */
 public abstract class ZutatenDrinks extends Drinks{
 
-    abstract double cost();
+    
+    public abstract double cost();
     
 }

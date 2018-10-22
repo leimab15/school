@@ -9,11 +9,19 @@ package leimab15;
  *
  * @author Manuel
  */
-public class Milch extends ZutatenDrinks{
+public class Milk extends ZutatenDrinks{
 
+    private Drinks drink;
+    
+    public Milk(Drinks drink)
+    {
+        this.drink = drink;
+        this.description = "Milk";
+    }
+    
     @Override
-    double cost() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double cost() {
+       return 0.12 + drink.cost();
     }
     
 }

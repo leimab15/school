@@ -11,9 +11,17 @@ package leimab15;
  */
 public class Schokostreusel extends ZutatenDrinks{
 
+    private Drinks drink;
+    
+    public Schokostreusel(Drinks drink)
+    {
+        this.drink = drink;
+        this.description = "Schokostreusel";
+    }
+     
     @Override
-    double cost() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double cost() {
+        return 0.5 + drink.cost();
     }
     
 }
