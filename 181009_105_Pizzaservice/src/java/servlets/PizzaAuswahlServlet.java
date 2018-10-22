@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import beans.Lieferadresse;
 import beans.Pizza;
 import java.io.BufferedReader;
 import java.io.File;
@@ -99,7 +100,8 @@ public class PizzaAuswahlServlet extends HttpServlet {
             throws ServletException, IOException {
         String bestellen = request.getParameter("bestellen");
         String zureuck = request.getParameter("zurueck");
-        String lieferadresse = request.getParameter("lieferadresse");
+        String strasse = request.getParameter("lieferadresse");
+        String plz = request.getParameter("plz");
         HttpSession session = request.getSession();
         
         if (zureuck != null) {
@@ -116,13 +118,13 @@ public class PizzaAuswahlServlet extends HttpServlet {
                     bestelltePizzas.add(p);
                 }
             });
-            if (bestelltePizzas.size() > 0 && !lieferadresse.isEmpty()) {
+            if (bestelltePizzas.size() > 0 && !strasse.isEmpty() && !plz.isEmpty()) {
                 session.setAttribute("bestellungsListe", bestelltePizzas);
-                session.setAttribute("lieferadresse", lieferadresse);
+                session.setAttribute("lieferadresse",new Lieferadresse(strasse, plz));
                 request.getRequestDispatcher("jsp" + File.separator + "PizzaBestellung.jsp").forward(request, response);
                 request.setAttribute("errorMessage", "");
             } else {
-                request.setAttribute("errorMessage", "Bitte mindestes 1 Pizza bestellen und die Lieferadresse eigeben!");
+                request.setAttribute("errorMessage", "Bitte mindestes 1 Pizza bestellen!");
             }
         }
         processRequest(request, response);

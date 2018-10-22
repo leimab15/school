@@ -4,6 +4,7 @@
     Author     : Manuel
 --%>
 
+<%@page import="beans.Lieferadresse"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="beans.Pizza"%>
 <%@page import="beans.Pizza"%>
@@ -50,8 +51,14 @@
                 </tbody>
             </table>
             <div class="col-md-6">
-                Lieferadresse:  <div><%= (String) session.getAttribute("lieferadresse")%></div>
+                <% Lieferadresse la = (Lieferadresse) session.getAttribute("lieferadresse");%>
+                Straße:  
                 <br>
+                <p><%= la.getStrasse()%></p>
+                <div></div>
+                PLZ:
+                <br>
+                <p><%= la.getPlz()%></p>
                 <br>
                 <input class="btn btn-primary" type="submit" name="zurueck" value="Zurück" />
             </div>

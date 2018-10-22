@@ -34,7 +34,12 @@
             </table>
             <div class="col-md-6">
                 Lieferadresse:
-                <input type="text" name="lieferadresse" value="" />
+                <br>
+                <input type="text" name="lieferadresse" required="required" value="" />
+                <br>
+                PLZ:
+                <br>
+                <input type="text" name="plz" required="required" value="" />
                 <br>
                 <br>
                 <input class="btn btn-primary" type="submit" name="bestellen" value="Bestellen" />
