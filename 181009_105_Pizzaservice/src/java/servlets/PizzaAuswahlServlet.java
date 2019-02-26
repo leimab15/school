@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +43,7 @@ public class PizzaAuswahlServlet extends HttpServlet {
             try (BufferedReader br = new BufferedReader(isr)) {
                 String line = "";
                 String seperator = ";";
-                
+
                 while ((line = br.readLine()) != null) {
                     String[] pizzaDataStr = line.split(seperator);
                     String name = pizzaDataStr[0];
@@ -102,11 +103,13 @@ public class PizzaAuswahlServlet extends HttpServlet {
         String zureuck = request.getParameter("zurueck");
         String strasse = request.getParameter("lieferadresse");
         String plz = request.getParameter("plz");
+        String setLang = request.getParameter("lang");
         HttpSession session = request.getSession();
-        
+
         if (zureuck != null) {
             request.getRequestDispatcher("jsp" + File.separator + "PizzaAuswahl.jsp").forward(request, response);
         }
+
         
         if (bestellen != null) {
             ArrayList<Pizza> bestelltePizzas = new ArrayList();
@@ -120,13 +123,21 @@ public class PizzaAuswahlServlet extends HttpServlet {
             });
             if (bestelltePizzas.size() > 0 && !strasse.isEmpty() && !plz.isEmpty()) {
                 session.setAttribute("bestellungsListe", bestelltePizzas);
-                session.setAttribute("lieferadresse",new Lieferadresse(strasse, plz));
+                session.setAttribute("lieferadresse", new Lieferadresse(strasse, plz));
                 request.getRequestDispatcher("jsp" + File.separator + "PizzaBestellung.jsp").forward(request, response);
                 request.setAttribute("errorMessage", "");
             } else {
                 request.setAttribute("errorMessage", "Bitte mindestes 1 Pizza bestellen!");
             }
         }
+        
+        if (setLang != null) {
+            Cookie lang = new Cookie("lang", setLang);
+            lang.setMaxAge(-1);
+            response.addCookie(lang);
+            response.sendRedirect("jsp" + File.separator + "PizzaAuswahl.jsp");
+        }
+
         processRequest(request, response);
     }
 

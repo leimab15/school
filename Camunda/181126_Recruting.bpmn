@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_13qsqql" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:collaboration id="ProzessRecruting">
+    <bpmn:participant id="StellenRecruting" name="Stellen Recruting" processRef="stellen_recruting" />
+  </bpmn:collaboration>
+  <bpmn:process id="stellen_recruting" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_1q3cy6c">
+      <bpmn:lane id="Lane_0i239rx">
+        <bpmn:flowNodeRef>StartEvent_1ri044f</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0ucjnr2">
+        <bpmn:flowNodeRef>Task_0v6yrjg</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0bbuv8o" />
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1ri044f">
+      <bpmn:outgoing>SequenceFlow_14eo5dy</bpmn:outgoing>
+      <bpmn:messageEventDefinition />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_14eo5dy" sourceRef="StartEvent_1ri044f" targetRef="Task_0v6yrjg" />
+    <bpmn:task id="Task_0v6yrjg" name="Stelle beschreiben">
+      <bpmn:incoming>SequenceFlow_14eo5dy</bpmn:incoming>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ProzessRecruting">
+      <bpmndi:BPMNShape id="Participant_1y8vbea_di" bpmnElement="StellenRecruting">
+        <dc:Bounds x="123" y="22" width="1302" height="448" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0i239rx_di" bpmnElement="Lane_0i239rx">
+        <dc:Bounds x="153" y="22" width="1272" height="185" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0ucjnr2_di" bpmnElement="Lane_0ucjnr2">
+        <dc:Bounds x="153" y="207" width="1272" height="117" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0bbuv8o_di" bpmnElement="Lane_0bbuv8o">
+        <dc:Bounds x="153" y="324" width="1272" height="146" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0n9ewpr_di" bpmnElement="StartEvent_1ri044f">
+        <dc:Bounds x="182" y="104" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0v6yrjg_di" bpmnElement="Task_0v6yrjg">
+        <dc:Bounds x="302" y="228" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14eo5dy_di" bpmnElement="SequenceFlow_14eo5dy">
+        <di:waypoint x="218" y="122" />
+        <di:waypoint x="259" y="122" />
+        <di:waypoint x="259" y="268" />
+        <di:waypoint x="302" y="268" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

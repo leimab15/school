@@ -18,7 +18,32 @@
         <div class="col-md-12">
             <h1>Pizza Bestellen Online</h1>
         </div>
-        <form action="PizzaAuswahlServlet" method="POST">
+        <form action="PizzaAuswahlServlet" id="PizzaAuswahlServlet" method="POST">
+            <div class="container">
+                <select name="lang" form="PizzaAuswahlServlet" onchange="this.form.submit()">
+                    <%
+                        Cookie[] cookies = request.getCookies();
+                        boolean hasLangCookie = false;
+                        if (cookies != null) {
+                            for (Cookie cookie : cookies) {
+                                if (cookie.getName().equals("lang")) {
+                                hasLangCookie = true;%> 
+                                        <option value="de" <%=cookie.getValue().equals("de") ? "selected" : ""%>>Deutsch</option>
+                                        <option value="en" <%=cookie.getValue().equals("en") ? "selected" : ""%>>Englisch</option>
+                                    <%
+                                    }
+                                }
+                             }
+                        if(!hasLangCookie)
+                        {
+                        %>
+                            <option value="de">Deutsch</option>
+                            <option value="en">Englisch</option>
+                        <%
+                        }
+                    %>
+                </select>
+            </div>
             <table border="0" class="table table-striped" style="background: #b3d5f2">
                 <%
                     ArrayList<Pizza> pizzaList = (ArrayList<Pizza>) this.getServletContext().getAttribute("pizzaList");
@@ -30,7 +55,7 @@
                     <td style="font-size: 18px"><%=p.getPrice()%> €</td>
                     <td><input type="number" name="<%=p.getName()%>" min="0" max="10" value="0"></td>
                 </tr>
-                <% } %>
+                <% }%>
             </table>
             <div class="col-md-6">
                 Lieferadresse:

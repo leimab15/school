@@ -113,50 +113,53 @@ public class PizzaAuswahlServlet extends HttpServlet {
         if (bestellen != null) {
             for (Pizza pizza : pizzaList) {
                 if (pizza.getPizzaName().equals(request.getParameter("selectedPizza"))) {
-                        Pizza bestelltePizza = null;
-                        switch (pizza.getPizzaName()) {
-                            case "PizzaOhne":
-                                bestelltePizza = new PizzaOhne();
-                                break;
-                            case "SalamiPizza":
-                                bestelltePizza = new SalamiPizza();
-                                break;
-                            case "Margarita":
-                                bestelltePizza = new Margarita();
-                                break;
-                            case "Funghi":
-                                bestelltePizza = new Funghi();
-                                break;
-                            case "Capricciosa":
-                                bestelltePizza = new Capricciosa();
-                                break;
-                            default:
-                                 bestelltePizza = new Margarita();
-                                break;
-                        }
-                        for (PizzaZutaten pizzaZutaten : pizzaZutatenList) {
-                            int bestellteZutatenNumber = Integer.parseInt(request.getParameter(pizzaZutaten.getZutatenName()));
-                            for (int i = 0; i < bestellteZutatenNumber; i++) {
-                                switch (pizzaZutaten.getZutatenName()) {
-                                    case "Salami":
-                                        bestelltePizza = new Salami(bestelltePizza);
-                                        break;
-                                    case "Tomato":
-                                        bestelltePizza = new Tomatos(bestelltePizza);
-                                        break;
-                                    case "Cheese":
-                                        bestelltePizza = new Cheese(bestelltePizza);
-                                        break;
-                                    case "Schinken":
-                                        bestelltePizza = new Schinken(bestelltePizza);
-                                        break;
-                                    case "Oliven":
-                                        bestelltePizza = new Oliven(bestelltePizza);
-                                        break;
-                                }
+                    Pizza bestelltePizza = null;
+                    switch (pizza.getPizzaName()) {
+                        case "PizzaOhne":
+                            bestelltePizza = new PizzaOhne();
+                            break;
+                        case "SalamiPizza":
+                            bestelltePizza = new SalamiPizza();
+                            break;
+                        case "Margarita":
+                            bestelltePizza = new Margarita();
+                            break;
+                        case "Funghi":
+                            bestelltePizza = new Funghi();
+                            break;
+                        case "Capricciosa":
+                            bestelltePizza = new Capricciosa();
+                            break;
+                        default:
+                            bestelltePizza = new Margarita();
+                            break;
+                    }
+                    for (PizzaZutaten pizzaZutaten : pizzaZutatenList) {
+                        int bestellteZutatenNumber = Integer.parseInt(request.getParameter(pizzaZutaten.getZutatenName()));
+                        for (int i = 0; i < bestellteZutatenNumber; i++) {
+                            switch (pizzaZutaten.getZutatenName()) {
+                                case "Salami":
+                                    bestelltePizza = new Salami(bestelltePizza);
+                                    break;
+                                case "Tomato":
+                                    bestelltePizza = new Tomatos(bestelltePizza);
+                                    break;
+                                case "Cheese":
+                                    bestelltePizza = new Cheese(bestelltePizza);
+                                    break;
+                                case "Schinken":
+                                    bestelltePizza = new Schinken(bestelltePizza);
+                                    break;
+                                case "Oliven":
+                                    bestelltePizza = new Oliven(bestelltePizza);
+                                    break;
+                                default:
+                                    bestelltePizza = new Tomatos(bestelltePizza);
+                                    break;
                             }
                         }
-                        session.setAttribute("bestelltePizza", bestelltePizza);
+                    }
+                    session.setAttribute("bestelltePizza", bestelltePizza);
                 }
             }
             session.setAttribute("lieferadresse", new Lieferadresse(strasse, plz));
